@@ -1,4 +1,6 @@
 import random
+import statistics
+import math
 
 weapons = {
 	'weapon1': {'attack': 4, 'hit': 3, 'damage': 5, 'crit': 3, 'ap': 2, 'mw': 3},
@@ -31,13 +33,13 @@ defenders = {
 
 def throw_dice(dice, crit, hit, ceaseless=False):
 	results = {'hit': 0, 'crit': 0, 'miss': 0}
-	for i in [0:dice]:
+	for i in range(0,dice):
 		throw = random.randint(1, 6)
 		if ceaseless and throw == 1:
 			throw = random.randint(1, 6)
-		if result >= crit:
+		if throw >= crit:
 			results['crit'] += 1
-		elif result >= hit:
+		elif throw >= hit:
 			results['hit'] += 1
 		else:
 			results['miss'] += 1
@@ -54,7 +56,7 @@ def simulate_combat(weapon, defender):
 	# mortal wound is calculated immediately after crit roll
 	damage = attack_results['crit'] * weapon['mw']
 
-	# handle Balanced: only misses are rerolled
+	# handle Balanced and Relentless: only misses are rerolled
 	if (weapon['balanced'] or weapon['relentless']) and attack_results['miss']:
 		attack_results['miss'] -= 1
 		rethrow = throw_dice(1, weapon['lethal'], weapon['hit'])
@@ -73,41 +75,46 @@ def simulate_combat(weapon, defender):
 		defender_dice = defender['defense'] - weapon['ap']
 	defend_results = throw_dice(defender_dice, 6, defender['save'])
 
-	# use crit saves to negate crit attacks
-	attack_results['crit'] -= defend_results['crit']
-	# use remaining crit saves to negate normal attacks
-	if attack_results['crit'] < 0:
-		attack_results['hit'] -= attack_results['crit']
-		attack_results['crit'] = 0
+	# use crit saves to negate crit attacks, only use the rest for normal attacks
+	results = {'hit': 0, 'crit': 0}
+	if attack_results['crit'] >= defend_results['crit']:
+		results['crit'] = attack_results['crit'] - defend_results['crit']
+		results['hit'] = attack_results['hit']
+	else:
+		results['crit'] = 0
+		results['hit'] = attack_results['hit'] - attack_results['crit'] - defend_results['crit']
 
-	# use normal saves to negate normal hits
-	attack_results['hit'] -= defend_results['hit']
-	# use remaining saves to save against crit hits
-	if attack_results['hit'] < 0:
-		if attack_results['crit'] > 0:
-			# instead of wasting 1 save dice it's better to save a crit instead
-			if attack_results['hit'] == -1:
-				attack_results['hit'] = 1
-				attack_results['crit'] -= 1
-			else:
-				attack_results['crit'] -= attack_results['hit'] / 2
-				if attack_results['crit'] < 0:
-					attack_results['crit'] = 0
-		attack_results['hit'] = 0
+	if defend_results['hit'] > 0:
+		# special case: better to let 1 normal hit go in and deflect a crit than to waste a save
+		if results['crit'] > 0 and results['hit'] == defend_results['hit'] + 1:
+			results['hit'] = 1
+			results['crit'] -= 1
+		# use normal saves for normal hits
+		elif results['hit'] >= defend_results['hit']:
+			results['hit'] -= defend_results['hit']
+		# and if there's any left use it for crits
+		else:
+			results['crit'] -= math.floor((defend_results['hit'] - results['hit'])/2)
+			results['hit'] = 0
 
 	# calculate damage
 	damage += attack_results['hit']*weapon['damage'] + attack_results['crit']*weapon['crit']
-	return damage
+	total_hits = attack_results['hit'] + attack_results['crit']
+	return damage, total_hits
 
+SAMPLES = 1000000
 
 for weapon_name, weapon in weapons.items():
-	for stat in weapon_defaults.keys:
-		if stat not in weapon.keys:
+	for stat in weapon_defaults.keys():
+		if stat not in weapon.keys():
 			weapon[stat] = weapon_defaults[stat]
 	for defender_name, defender in defenders.items():
 		# simulate 1000 cases, average out results
-		sum_damage = 0
-		for i in [0:1000]:
-			sum_damage += simulate_combat(weapon, defender)
-		average_damage = sum_damage / 1000
-		print(f"{weapon_name} - {defender_name}: {average_damage}")
+		damages, hits = ([],[])
+		for i in range(0,SAMPLES):
+			damage, hit = simulate_combat(weapon, defender)
+			damages.append(damage)
+			hits.append(hit)
+		average_damage = statistics.mean(damages)
+		average_hits = statistics.mean(hits)
+		print(f"{weapon_name} - {defender_name}: {average_damage} - {average_hits}")
