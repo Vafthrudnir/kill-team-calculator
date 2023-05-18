@@ -5,6 +5,8 @@ weapons = {
 	'weapon2': {'attack': 4, 'hit': 3, 'damage': 4, 'crit': 5, 'ap': 1},
 	'weapon3': {'attack': 4, 'hit': 3, 'damage': 3, 'crit': 4, 'rending': True},
 	'weapon4': {'attack': 5, 'hit': 4, 'damage': 4, 'crit': 5, 'lethal': 5, 'piercing': 1},
+	'weapon5': {'attack': 5, 'hit': 2, 'damage': 2, 'crit': 4, 'balanced': True, 'rending': True},
+	'weapon6': {'attack': 4, 'hit': 2, 'damage': 3, 'crit': 4, 'ceaseless': True},
 }
 
 weapon_defaults = {
@@ -12,7 +14,10 @@ weapon_defaults = {
 	'mw': 0,
 	'lethal': 6,
 	'rending': False,
-	'piercing': 0
+	'piercing': 0,
+	'balanced': False,
+	'ceaseless': False,
+	'relentless': False
 }
 
 defenders = {
@@ -23,39 +28,50 @@ defenders = {
 	'defense5': {'defense': 2, 'save': 5},
 }
 
+
+def throw_dice(dice, crit, hit, ceaseless=False):
+	results = {'hit': 0, 'crit': 0, 'miss': 0}
+	for i in [0:dice]:
+		throw = random.randint(1, 6)
+		if ceaseless and throw == 1:
+			throw = random.randint(1, 6)
+		if result >= crit:
+			results['crit'] += 1
+		elif result >= hit:
+			results['hit'] += 1
+		else:
+			results['miss'] += 1
+	return results
+
+
 def simulate_combat(weapon, defender):
 	# throw and interpret attack dice
-	attack_results = {'hit': 0, 'crit': 0, 'miss': 0}
-	for i in [0:weapon['atttack']]:
-		throw = random.randint(1, 6)
-		if result >= weapon['lethal']:
-			attack_results['crit'] += 1
-		elif result >= weapon['hit']:
-			attack_results['hit'] += 1
-		else:
-			attack_results['miss'] += 1
+	attack_results = throw_dice(weapon['attack'],
+								weapon['lethal'],
+								weapon['hit'],
+								weapon['ceaseless'])
+
 	# mortal wound is calculated immediately after crit roll
 	damage = attack_results['crit'] * weapon['mw']
 
-	# handle rending
+	# handle Balanced: only misses are rerolled
+	if (weapon['balanced'] or weapon['relentless']) and attack_results['miss']:
+		attack_results['miss'] -= 1
+		rethrow = throw_dice(1, weapon['lethal'], weapon['hit'])
+		for result, value in rethrow.items():
+			attack_results[result] += value
+
+	# handle Rending
 	if weapon['rending'] and attack_results['crit'] and attack_results['hit']:
 		attack_results['hit'] -= 1
 		attack_results['crit'] += 1
 
 	# throw and interpret defense dice
-	defend_results = {'save': 0, 'crit': 0, 'miss': 0}
 	if weapon['piercing'] and attack_results['crit'] and weapon['piercing'] > weapon['ap']:
 		defender_dice = defender['defense'] - weapon['piercing']
 	else:
 		defender_dice = defender['defense'] - weapon['ap']
-	for i in [0:defender_dice]:
-		throw = random.randint(1, 6)
-		if result == 6:
-			defend_results['crit'] += 1
-		elif result >= defender['save']:
-			defend_results['save'] += 1
-		else:
-			defend_results['miss'] += 1
+	defend_results = throw_dice(defender_dice, 6, defender['save'])
 
 	# use crit saves to negate crit attacks
 	attack_results['crit'] -= defend_results['crit']
