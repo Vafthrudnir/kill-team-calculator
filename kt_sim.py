@@ -2,9 +2,16 @@ import random
 
 weapons = {
 	'weapon1': {'attack': 4, 'hit': 3, 'damage': 5, 'crit': 3, 'ap': 2, 'mw': 3},
-	'weapon2': {'attack': 4, 'hit': 3, 'damage': 4, 'crit': 5, 'ap': 1, 'mw': 0},
-	'weapon3': {'attack': 4, 'hit': 3, 'damage': 3, 'crit': 4, 'ap': 0, 'mw': 0},
-	'weapon4': {'attack': 5, 'hit': 4, 'damage': 4, 'crit': 5, 'ap': 0, 'mw': 0},
+	'weapon2': {'attack': 4, 'hit': 3, 'damage': 4, 'crit': 5, 'ap': 1},
+	'weapon3': {'attack': 4, 'hit': 3, 'damage': 3, 'crit': 4, 'rending': True},
+	'weapon4': {'attack': 5, 'hit': 4, 'damage': 4, 'crit': 5, 'lethal': 5},
+}
+
+weapon_defaults = {
+	'ap': 0,
+	'mw': 0,
+	'lethal': 6,
+	'rending': False,
 }
 
 defenders = {
@@ -20,7 +27,7 @@ def simulate_combat(weapon, defender):
 	attack_results = {'hit': 0, 'crit': 0, 'miss': 0}
 	for i in [0:weapon['atttack']]:
 		throw = random.randint(1, 6)
-		if result == 6:
+		if result >= weapon['lethal']:
 			attack_results['crit'] += 1
 		elif result >= weapon['hit']:
 			attack_results['hit'] += 1
@@ -28,6 +35,11 @@ def simulate_combat(weapon, defender):
 			attack_results['miss'] += 1
 	# mortal wound is calculated immediately after crit roll
 	damage = attack_results['crit'] * weapon['mw']
+
+	# handle rending
+	if weapon['rending'] and attack_results['crit'] and attack_results['hit']:
+		attack_results['hit'] -= 1
+		attack_results['crit'] += 1
 
 	# throw and interpret defense dice
 	defend_results = {'save': 0, 'crit': 0, 'miss': 0}
@@ -69,6 +81,9 @@ def simulate_combat(weapon, defender):
 
 
 for weapon_name, weapon in weapons.items():
+	for stat in weapon_defaults.keys:
+		if stat not in weapon.keys:
+			weapon[stat] = weapon_defaults[stat]
 	for defender_name, defender in defenders.items():
 		# simulate 1000 cases, average out results
 		sum_damage = 0
