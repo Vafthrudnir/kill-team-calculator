@@ -98,23 +98,20 @@ def simulate_combat(weapon, defender):
 			results['hit'] = 0
 
 	# calculate damage
-	damage += attack_results['hit']*weapon['damage'] + attack_results['crit']*weapon['crit']
-	total_hits = attack_results['hit'] + attack_results['crit']
-	return damage, total_hits
+	damage += results['hit']*weapon['damage'] + results['crit']*weapon['crit']
+	return damage
 
-SAMPLES = 1000000
+SAMPLES = 100000
 
 for weapon_name, weapon in weapons.items():
 	for stat in weapon_defaults.keys():
 		if stat not in weapon.keys():
 			weapon[stat] = weapon_defaults[stat]
 	for defender_name, defender in defenders.items():
-		# simulate 1000 cases, average out results
-		damages, hits = ([],[])
+		# simulate SAMPLE cases, average out results
+		damages = []
 		for i in range(0,SAMPLES):
-			damage, hit = simulate_combat(weapon, defender)
-			damages.append(damage)
-			hits.append(hit)
+			damages.append(simulate_combat(weapon, defender))
 		average_damage = statistics.mean(damages)
-		average_hits = statistics.mean(hits)
-		print(f"{weapon_name} - {defender_name}: {average_damage} - {average_hits}")
+		deviation = statistics.stdev(damages)
+		print(f"{weapon_name} - {defender_name}: {average_damage:.2f} - {deviation:.2f}")
