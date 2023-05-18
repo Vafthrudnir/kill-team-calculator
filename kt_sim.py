@@ -1,13 +1,18 @@
 import random
 
 weapons = {
-	'weapon1': {'attack': 4, 'hit': 3, 'damage': 5, 'crit': 3},
-	'weapon2': {'attack': 4, 'hit': 3, 'damage': 4, 'crit': 5}
+	'weapon1': {'attack': 4, 'hit': 3, 'damage': 5, 'crit': 3, 'ap': 2, 'mw': 3},
+	'weapon2': {'attack': 4, 'hit': 3, 'damage': 4, 'crit': 5, 'ap': 1, 'mw': 0},
+	'weapon3': {'attack': 4, 'hit': 3, 'damage': 3, 'crit': 4, 'ap': 0, 'mw': 0},
+	'weapon4': {'attack': 5, 'hit': 4, 'damage': 4, 'crit': 5, 'ap': 0, 'mw': 0},
 }
 
 defenders = {
-	'defense1': {'defense': 4, 'save': 6},
-	'defense2': {'defense': 3, 'save': 4}
+	'defense1': {'defense': 0, 'save': 6},
+	'defense2': {'defense': 3, 'save': 2},
+	'defense3': {'defense': 3, 'save': 3},
+	'defense4': {'defense': 3, 'save': 4},
+	'defense5': {'defense': 2, 'save': 5},
 }
 
 def simulate_combat(weapon, defender):
@@ -21,10 +26,13 @@ def simulate_combat(weapon, defender):
 			attack_results['hit'] += 1
 		else:
 			attack_results['miss'] += 1
+	# mortal wound is calculated immediately after crit roll
+	damage = attack_results['crit'] * weapon['mw']
 
 	# throw and interpret defense dice
 	defend_results = {'save': 0, 'crit': 0, 'miss': 0}
-	for i in [0:defender['defense']]:
+	defender_dice = defender['defense'] - weapon['ap']
+	for i in [0:defender_dice]:
 		throw = random.randint(1, 6)
 		if result == 6:
 			defend_results['crit'] += 1
@@ -56,7 +64,7 @@ def simulate_combat(weapon, defender):
 		attack_results['hit'] = 0
 
 	# calculate damage
-	damage = attack_results['hit']*weapon['damage'] + attack_results['crit']*weapon['crit']
+	damage += attack_results['hit']*weapon['damage'] + attack_results['crit']*weapon['crit']
 	return damage
 
 
