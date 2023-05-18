@@ -4,7 +4,7 @@ weapons = {
 	'weapon1': {'attack': 4, 'hit': 3, 'damage': 5, 'crit': 3, 'ap': 2, 'mw': 3},
 	'weapon2': {'attack': 4, 'hit': 3, 'damage': 4, 'crit': 5, 'ap': 1},
 	'weapon3': {'attack': 4, 'hit': 3, 'damage': 3, 'crit': 4, 'rending': True},
-	'weapon4': {'attack': 5, 'hit': 4, 'damage': 4, 'crit': 5, 'lethal': 5},
+	'weapon4': {'attack': 5, 'hit': 4, 'damage': 4, 'crit': 5, 'lethal': 5, 'piercing': 1},
 }
 
 weapon_defaults = {
@@ -12,6 +12,7 @@ weapon_defaults = {
 	'mw': 0,
 	'lethal': 6,
 	'rending': False,
+	'piercing': 0
 }
 
 defenders = {
@@ -43,7 +44,10 @@ def simulate_combat(weapon, defender):
 
 	# throw and interpret defense dice
 	defend_results = {'save': 0, 'crit': 0, 'miss': 0}
-	defender_dice = defender['defense'] - weapon['ap']
+	if weapon['piercing'] and attack_results['crit'] and weapon['piercing'] > weapon['ap']:
+		defender_dice = defender['defense'] - weapon['piercing']
+	else:
+		defender_dice = defender['defense'] - weapon['ap']
 	for i in [0:defender_dice]:
 		throw = random.randint(1, 6)
 		if result == 6:
