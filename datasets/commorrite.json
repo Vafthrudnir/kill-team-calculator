@@ -1,0 +1,244 @@
+"Commorrite": {
+	"operatives": {
+		"Kabalite (warrior)": {
+			"stats": {
+				"movement": 3,
+				"apl": 2,
+				"group activation": 1,
+				"defense": 3,
+				"save": 4,
+				"wound": 8
+			},
+			"ranged-weapons": {
+				"Splinter rifle": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 2,
+					"crit": 4,
+					"lethal": 5
+				}
+			}
+		},
+		"Sybarite": {
+			"stats": {
+				"movement": 3,
+				"apl": 2,
+				"group activation": 1,
+				"defense": 3,
+				"save": 4,
+				"wound": 9
+			},
+			"ranged-weapons": {
+				"Blast pistol": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 4,
+					"crit": 5,
+					"ap": 2,
+					"rng": 6
+				},
+				"Splinter pistol": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 2,
+					"crit": 4,
+					"lethal": 5,
+					"rng": 6
+				},
+				"Splinter rifle": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 2,
+					"crit": 4,
+					"lethal": 5
+				}
+			}
+		},
+		"Kabalite (gunner)": {
+			"stats": {
+				"movement": 3,
+				"apl": 2,
+				"group activation": 1,
+				"defense": 3,
+				"save": 4,
+				"wound": 8
+			},
+			"ranged-weapons": {
+				"Blaster": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 5,
+					"crit": 6,
+					"ap": 2
+				},
+				"Shredder": {
+					"attack": 5,
+					"hit": 3,
+					"damage": 3,
+					"crit": 4,
+					"blast": 2
+				}
+			}
+		},
+		"Kabalite (heavy gunner)": {
+			"stats": {
+				"movement": 3,
+				"apl": 2,
+				"group activation": 1,
+				"defense": 3,
+				"save": 4,
+				"wound": 8
+			},
+			"ranged-weapons": {
+				"Dark lance": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 6,
+					"crit": 7,
+					"ap": 2,
+					"heavy": true,
+					"unwieldy": true
+				},
+				"Splinter cannon": {
+					"attack": 5,
+					"hit": 3,
+					"damage": 3,
+					"crit": 5,
+					"lethal": 5,
+					"fusillade": true,
+					"heavy": true
+				}
+			}
+		},
+		"Wych (warrior)": {
+			"stats": {
+				"movement": 3,
+				"apl": 2,
+				"group activation": 1,
+				"defense": 3,
+				"save": 6,
+				"wound": 8
+			},
+			"ranged-weapons": {
+				"Splinter pistol": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 2,
+					"crit": 4,
+					"lethal": 5,
+					"rng": 6
+				}
+			},
+			"special": {
+				"invulnerable save": 5
+			}
+		},
+		"Hekatrix": {
+			"stats": {
+				"movement": 3,
+				"apl": 2,
+				"group activation": 1,
+				"defense": 3,
+				"save": 6,
+				"wound": 9
+			},
+			"ranged-weapons": {
+				"Splinter pistol": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 2,
+					"crit": 4,
+					"lethal": 5,
+					"rng": 6
+				},
+				"Blast pistol": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 4,
+					"crit": 5,
+					"ap": 2,
+					"rng": 6
+				}
+			},
+			"special": {
+				"invulnerable save": 5
+			}
+		},
+		"Wych (fighter)": {
+			"stats": {
+				"movement": 3,
+				"apl": 2,
+				"group activation": 1,
+				"defense": 3,
+				"save": 6,
+				"wound": 8
+			},
+			"special": {
+				"invulnerable save": 5
+			}
+		}
+	},
+	"equipment": {
+		"Agonite": {
+			"applicable": ["Splinter cannon", "Splinter pistol", "Splinter rifle"],
+			"owners": ["Sybarite", "Kabalite (warrior)", "Kabalite (gunner)", "Kabalite (heavy gunner)"],
+			"adds": {
+				"relentless": true
+			}
+		},
+		"Deathbloom": {
+			"applicable": ["Splinter cannon", "Splinter pistol", "Splinter rifle"],
+			"owners": ["Sybarite", "Kabalite (warrior)", "Kabalite (gunner)", "Kabalite (heavy gunner)"],
+			"adds": {
+				"rending": true
+			}
+		},
+		"Feralex": {
+			"applicable": ["Splinter cannon", "Splinter pistol", "Splinter rifle"],
+			"owners": ["Sybarite", "Kabalite (warrior)", "Kabalite (gunner)", "Kabalite (heavy gunner)"],
+			"adds": {
+				"splash": 1
+			}
+		},
+		"Plasma grenade": {
+			"stand-alone": true,
+			"stats": {
+				"attack": 4,
+				"hit": 3,
+				"damage": 3,
+				"crit": 4,
+				"rng": 6,
+				"blast": 2,
+				"limited": true,
+				"indirect": true
+			}
+		},
+		"Haywire grenade": {
+			"stand-alone": true,
+			"stats": {
+				"attack": 4,
+				"hit": 3,
+				"damage": 2,
+				"crit": 3,
+				"rng": 6,
+				"blast": 2,
+				"limited": true,
+				"indirect": true,
+				"haywire": true
+			}
+		},
+		"Phantasm grenade launcher": {
+			"owners": ["Sybarite", "Hekatrix"],
+			"stats": {
+				"attack": 4,
+				"hit": 3,
+				"damage": 1,
+				"crit": 2,
+				"rng": 6,
+				"blast": 1,
+				"lethal": 5,
+				"stun": true
+			}
+		}
+	}
+}
