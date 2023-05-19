@@ -1,161 +1,163 @@
-"Talons of the Emperor": {
-	"operatives": {
-		"Custodian Guard (warrior)": {
-			"stats": {
-				"movement": 3,
-				"apl": 3,
-				"group activation": 1,
-				"defense": 3,
-				"save": 2,
-				"wound": 18
-			},
-			"ranged-weapons": {
-				"Guardian spear": {
-					"attack": 4,
-					"hit": 2,
-					"damage": 3,
-					"crit": 5,
-					"piercing": 1,
+{
+	"Talons of the Emperor": {
+		"operatives": {
+			"Custodian Guard (warrior)": {
+				"stats": {
+					"movement": 3,
+					"apl": 3,
+					"group activation": 1,
+					"defense": 3,
+					"save": 2,
+					"wound": 18
 				},
-				"Sentinel blade": {
-					"attack": 4,
-					"hit": 2,
-					"damage": 3,
-					"crit": 4,
-					"rng": 6,
-					"piercing": 1
+				"ranged-weapons": {
+					"Guardian spear": {
+						"attack": 4,
+						"hit": 2,
+						"damage": 3,
+						"crit": 5,
+						"piercing": 1
+					},
+					"Sentinel blade": {
+						"attack": 4,
+						"hit": 2,
+						"damage": 3,
+						"crit": 4,
+						"rng": 6,
+						"piercing": 1
+					}
 				}
-			}
-		},
-		"Custodian Guard (leader)": {
-			"stats": {
-				"movement": 3,
-				"apl": 3,
-				"group activation": 1,
-				"defense": 3,
-				"save": 2,
-				"wound": 19
 			},
-			"ranged-weapons": {
-				"Guardian spear": {
-					"attack": 4,
-					"hit": 2,
-					"damage": 3,
-					"crit": 5,
-					"piercing": 1,
+			"Custodian Guard (leader)": {
+				"stats": {
+					"movement": 3,
+					"apl": 3,
+					"group activation": 1,
+					"defense": 3,
+					"save": 2,
+					"wound": 19
 				},
-				"Sentinel blade": {
-					"attack": 4,
-					"hit": 2,
-					"damage": 3,
-					"crit": 4,
-					"rng": 6,
-					"piercing": 1
+				"ranged-weapons": {
+					"Guardian spear": {
+						"attack": 4,
+						"hit": 2,
+						"damage": 3,
+						"crit": 5,
+						"piercing": 1
+					},
+					"Sentinel blade": {
+						"attack": 4,
+						"hit": 2,
+						"damage": 3,
+						"crit": 4,
+						"rng": 6,
+						"piercing": 1
+					}
+				}
+			},
+			"Sister of Silence Witchseeker": {
+				"stats": {
+					"movement": 3,
+					"apl": 2,
+					"group activation": 1,
+					"defense": 3,
+					"save": 3,
+					"wound": 8
+				},
+				"ranged-weapons": {
+					"Flamer": {
+						"attack": 5,
+						"hit": 2,
+						"damage": 2,
+						"crit": 2,
+						"rng": 6,
+						"torrent": 2
+					}
+				}
+			},
+			"Sister of Silence Vigilator": {
+				"stats": {
+					"movement": 3,
+					"apl": 2,
+					"group activation": 1,
+					"defense": 3,
+					"save": 3,
+					"wound": 8
+				}
+			},
+			"Sister of Silence Prosecutor": {
+				"stats": {
+					"movement": 3,
+					"apl": 2,
+					"group activation": 1,
+					"defense": 3,
+					"save": 3,
+					"wound": 8
+				},
+				"ranged-weapons": {
+					"Boltgun": {
+						"attack": 4,
+						"hit": 3,
+						"damage": 3,
+						"crit": 4
+					}
+				}
+			},
+			"Sister of Silence Superior": {
+				"stats": {
+					"movement": 3,
+					"apl": 2,
+					"group activation": 1,
+					"defense": 3,
+					"save": 3,
+					"wound": 9
+				},
+				"ranged-weapons": {
+					"Boltgun": {
+						"attack": 4,
+						"hit": 2,
+						"damage": 3,
+						"crit": 4
+					},
+					"Flamer": {
+						"attack": 5,
+						"hit": 2,
+						"damage": 2,
+						"crit": 2,
+						"rng": 6,
+						"torrent": 2
+					}
 				}
 			}
 		},
-		"Sister of Silence Witchseeker": {
-			"stats": {
-				"movement": 3,
-				"apl": 2,
-				"group activation": 1,
-				"defense": 3,
-				"save": 3,
-				"wound": 8
-			},
-			"ranged-weapons": {
-				"Flamer": {
-					"attack": 5,
-					"hit": 2,
-					"damage": 2,
-					"crit": 2,
-					"rng": 6,
-					"torrent": 2
+		"equipment": {
+			"Support Grip": {
+				"applicable": ["Shrieker cannon"],
+				"owners": ["Death Jester"],
+				"adds": {
+					"heavy": false,
+					"cumbersome": true
 				}
-			}
-		},
-		"Sister of Silence Vigilator": {
-			"stats": {
-				"movement": 3,
-				"apl": 2,
-				"group activation": 1,
-				"defense": 3,
-				"save": 3,
-				"wound": 8
-			}
-		},
-		"Sister of Silence Prosecutor": {
-			"stats": {
-				"movement": 3,
-				"apl": 2,
-				"group activation": 1,
-				"defense": 3,
-				"save": 3,
-				"wound": 8
 			},
-			"ranged-weapons": {
-				"Boltgun": {
+			"Psyk-out grenade": {
+				"owners": ["Sister of Silence Superior", "Sister of Silence Prosecutor", "Sister of Silence Vigilator", "Sister of Silence Witchseeker"],
+				"stats": {
 					"attack": 4,
 					"hit": 3,
-					"damage": 3,
-					"crit": 4
-				}
-			}
-		},
-		"Sister of Silence Superior": {
-			"stats": {
-				"movement": 3,
-				"apl": 2,
-				"group activation": 1,
-				"defense": 3,
-				"save": 3,
-				"wound": 9
-			},
-			"ranged-weapons": {
-				"Boltgun": {
-					"attack": 4,
-					"hit": 2,
-					"damage": 3,
-					"crit": 4
-				},
-				"Flamer": {
-					"attack": 5,
-					"hit": 2,
-					"damage": 2,
-					"crit": 2,
+					"damage": 1,
+					"crit": 1,
 					"rng": 6,
-					"torrent": 2
+					"blast": 2,
+					"limited": true,
+					"indirect": true,
+					"psyk-out": true
 				}
-			}
-		}
-	},
-	"equipment": {
-		"Support Grip": {
-			"applicable": ["Shrieker cannon"],
-			"owners": ["Death Jester"],
-			"adds": {
-				"heavy": false,
-				"cumbersome": true
-			}
-		},
-		"Psyk-out grenade": {
-			"owners": ["Sister of Silence Superior", "Sister of Silence Prosecutor", "Sister of Silence Vigilator", "Sister of Silence Witchseeker"],
-			"stats": {
-				"attack": 4,
-				"hit": 3,
-				"damage": 1,
-				"crit": 1,
-				"rng": 6,
-				"blast": 2,
-				"limited": true,
-				"indirect": true,
-				"psyk-out": true
-			}
-		},
-		"Storm Shield": {
-			"owners": ["Custodian Guard (warrior)", "Custodian Guard (leader)"],
-			"adds": {
-				"invulnerable-save": 4
+			},
+			"Storm Shield": {
+				"owners": ["Custodian Guard (warrior)", "Custodian Guard (leader)"],
+				"adds": {
+					"invulnerable-save": 4
+				}
 			}
 		}
 	}
