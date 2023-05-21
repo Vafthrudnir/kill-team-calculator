@@ -1,2 +1,2 @@
-docker stop kt_sim & docker rm kt_sim
-docker build -t kt_sim .
+docker stop kt_sim_api & docker rm kt_sim_api
+docker build -t kt_sim_api .
