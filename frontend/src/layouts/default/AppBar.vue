@@ -3,7 +3,7 @@
     <v-app-bar-title>
       <v-icon icon="mdi-circle-slice-4" />
 
-      Base Preset
+      App bar will come here
     </v-app-bar-title>
   </v-app-bar>
 </template>

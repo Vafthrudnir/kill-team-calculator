@@ -2,12 +2,16 @@ import statistics
 import json
 import os
 from flask import Flask, request
+from flask_cors import CORS
 
 import simulate_combat, test_values
 
 
 app = Flask(__name__)
+app.config.from_object(__name__)
 
+# enable CORS
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 weapon_defaults = {
 	'ap': 0,
@@ -74,7 +78,7 @@ def get_team_list():
 	return res
 
 
-@app.route('/simulate')
+@app.route('/simulate', methods=['PUT'])
 def simulate():
 	content = request.json
 	attacker = load_team(content['attacker'])

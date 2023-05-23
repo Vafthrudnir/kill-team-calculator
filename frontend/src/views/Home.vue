@@ -1,7 +1,7 @@
 <template>
-  <HelloWorld />
+  <Simulate />
 </template>
 
 <script lang="ts" setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import Simulate from '@/components/Simulate.vue'
 </script>
