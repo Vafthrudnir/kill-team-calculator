@@ -4,7 +4,7 @@ import os
 from flask import Flask, request
 from flask_cors import CORS
 
-import simulate_combat, test_values
+import simulate_combat
 
 
 app = Flask(__name__)
@@ -28,9 +28,8 @@ SAMPLES = 10000
 
 
 def combine_operatives(attacker_dict, defender_dict):
-	results = ''
-	for weapon_name, weapon in attacker_dict.items():
-		print(weapon_name)
+	results = []
+	for attacker, weapon in attacker_dict.items():
 		for stat in weapon_defaults.keys():
 			if stat not in weapon.keys():
 				weapon[stat] = weapon_defaults[stat]
@@ -39,17 +38,18 @@ def combine_operatives(attacker_dict, defender_dict):
 			damages = []
 			for i in range(0,SAMPLES):
 				damages.append(simulate_combat.simulate(weapon, defender))
-			average_damage = statistics.mean(damages)
+			expected_damage = statistics.mean(damages)
 			deviation = statistics.stdev(damages)
-			print(f'{weapon_name} - {defender_name}: {average_damage:.2f} - {deviation:.2f}')
-			results += f'{weapon_name} - {defender_name}: {average_damage:.2f} - {deviation:.2f}\n'
+			print(f'{attacker} - {defender_name}: {expected_damage:.2f} - {deviation:.2f}')
+			result_dict = {
+				"attacker": attacker[0],
+				"weapon": attacker[1],
+				"defender": defender_name,
+				"expected_damage": expected_damage,
+				"deviation": deviation
+			}
+			results.append(result_dict)
 	return results
-
-
-@app.route('/simulate_all')
-def simulate_all():
-	results = combine_operatives(test_values.weapons, test_values.defenders)
-	return '<pre>' + results + '</pre>'
 
 
 @app.route('/teams/<team>')
@@ -69,7 +69,6 @@ def load_team(team):
 
 @app.route('/teams/')
 def get_team_list():
-	response = '<pre>'
 	res = []
 	for path in os.listdir('datasets/'):
 		if os.path.isfile(os.path.join('datasets/', path)):
@@ -93,13 +92,13 @@ def simulate():
 		for operative, op_details in attacker_description['operatives'].items():
 			try:
 				for weapon_name, weapon in op_details['ranged-weapons'].items():
-					attacker_dict[f'{operative} - {weapon_name}'] = weapon
+					attacker_dict[(operative, weapon_name)] = weapon
 			except KeyError:
 				pass
 		for equipment, eq_details in attacker_description['equipment'].items():
 			try:
 				if eq_details['stand-alone']:
-					attacker_dict[f'{equipment}'] = eq_details['stats']
+					attacker_dict[(None, equipment)] = eq_details['stats']
 			except KeyError:
 				pass
 
@@ -108,5 +107,4 @@ def simulate():
 		for operative, op_details in defender_description['operatives'].items():
 			defender_dict[operative] = op_details['stats']
 
-	results = combine_operatives(attacker_dict, defender_dict)
-	return '<pre>' + results + '</pre>'
+	return combine_operatives(attacker_dict, defender_dict)
