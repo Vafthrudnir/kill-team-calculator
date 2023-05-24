@@ -1,179 +1,178 @@
 {
-	"Void-Dancer Troupe": {
-		"operatives": {
-			"Lead Player": {
-				"stats": {
-					"movement": 3,
-					"apl": 3,
-					"group activation": 1,
-					"defense": 3,
-					"save": 6,
-					"wound": 9
+	"name": "Void-Dancer Troupe",
+	"operatives": {
+		"Lead Player": {
+			"stats": {
+				"movement": 3,
+				"apl": 3,
+				"group activation": 1,
+				"defense": 3,
+				"save": 6,
+				"wound": 9
+			},
+			"ranged-weapons": {
+				"Fusion pistol": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 5,
+					"crit": 3,
+					"ap": 2,
+					"mw": 3,
+					"rng": 3
 				},
-				"ranged-weapons": {
-					"Fusion pistol": {
-						"attack": 4,
-						"hit": 2,
-						"damage": 5,
-						"crit": 3,
-						"ap": 2,
-						"mw": 3,
-						"rng": 3
-					},
-					"Neuro disruptor": {
-						"attack": 4,
-						"hit": 2,
-						"damage": 4,
-						"crit": 5,
-						"ap": 1,
-						"rng": 6,
-						"stun": true
-					},
-					"Shuriken pistol": {
-						"attack": 4,
-						"hit": 2,
-						"damage": 3,
-						"crit": 4,
-						"rending": true,
-						"rng": 6
-					}
+				"Neuro disruptor": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 4,
+					"crit": 5,
+					"ap": 1,
+					"rng": 6,
+					"stun": true
 				},
-				"special": {
-					"invulnerable save": 4
+				"Shuriken pistol": {
+					"attack": 4,
+					"hit": 2,
+					"damage": 3,
+					"crit": 4,
+					"rending": true,
+					"rng": 6
 				}
 			},
-			"Death Jester": {
-				"stats": {
-					"movement": 3,
-					"apl": 3,
-					"group activation": 1,
-					"defense": 3,
-					"save": 6,
-					"wound": 9
-				},
-				"ranged-weapons": {
-					"Shrieker cannon": {
-						"attack": 5,
-						"hit": 3,
-						"damage": 4,
-						"crit": 5,
-						"rending": true,
-						"fusillade": true,
-						"heavy": true
-					}
-				},
-				"special": {
-					"invulnerable save": 4
-				}
-			},
-			"Player": {
-				"stats": {
-					"movement": 3,
-					"apl": 3,
-					"group activation": 1,
-					"defense": 3,
-					"save": 6,
-					"wound": 8
-				},
-				"ranged-weapons": {
-					"Fusion pistol": {
-						"attack": 4,
-						"hit": 3,
-						"damage": 5,
-						"crit": 3,
-						"ap": 2,
-						"mw": 3,
-						"rng": 3
-					},
-					"Neuro disruptor": {
-						"attack": 4,
-						"hit": 3,
-						"damage": 4,
-						"crit": 5,
-						"ap": 1,
-						"rng": 6,
-						"stun": true
-					},
-					"Shuriken pistol": {
-						"attack": 4,
-						"hit": 3,
-						"damage": 3,
-						"crit": 4,
-						"rending": true,
-						"rng": 6
-					}
-				},
-				"special": {
-					"invulnerable save": 4
-				}
-			},
-			"Shadowseer": {
-				"stats": {
-					"movement": 3,
-					"apl": 3,
-					"group activation": 1,
-					"defense": 3,
-					"save": 6,
-					"wound": 9
-				},
-				"ranged-weapons": {
-					"Neuro disruptor": {
-						"attack": 4,
-						"hit": 3,
-						"damage": 4,
-						"crit": 5,
-						"ap": 1,
-						"rng": 6,
-						"stun": true
-					},
-					"Shuriken pistol": {
-						"attack": 4,
-						"hit": 3,
-						"damage": 3,
-						"crit": 4,
-						"rending": true,
-						"rng": 6
-					}
-				},
-				"special": {
-					"invulnerable save": 4
-				}
+			"special": {
+				"invulnerable save": 4
 			}
 		},
-		"equipment": {
-			"Shrieker Toxin Rounds": {
-				"applicable": ["Shuriken pistol", "Shrieker cannon"],
-				"adds": {
-					"mw": 1
+		"Death Jester": {
+			"stats": {
+				"movement": 3,
+				"apl": 3,
+				"group activation": 1,
+				"defense": 3,
+				"save": 6,
+				"wound": 9
+			},
+			"ranged-weapons": {
+				"Shrieker cannon": {
+					"attack": 5,
+					"hit": 3,
+					"damage": 4,
+					"crit": 5,
+					"rending": true,
+					"fusillade": true,
+					"heavy": true
 				}
 			},
-			"Pure Psychocrystals": {
-				"applicable": ["Neuro disruptor"],
-				"adds": {
-					"lethal": 5
-				}
+			"special": {
+				"invulnerable save": 4
+			}
+		},
+		"Player": {
+			"stats": {
+				"movement": 3,
+				"apl": 3,
+				"group activation": 1,
+				"defense": 3,
+				"save": 6,
+				"wound": 8
 			},
-			"Support Grip": {
-				"applicable": ["Shrieker cannon"],
-				"owners": ["Death Jester"],
-				"adds": {
-					"heavy": false,
-					"cumbersome": true
-				}
-			},
-			"Prismatic grenade": {
-				"stand-alone": true,
-				"stats": {
+			"ranged-weapons": {
+				"Fusion pistol": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 5,
+					"crit": 3,
+					"ap": 2,
+					"mw": 3,
+					"rng": 3
+				},
+				"Neuro disruptor": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 4,
+					"crit": 5,
+					"ap": 1,
+					"rng": 6,
+					"stun": true
+				},
+				"Shuriken pistol": {
 					"attack": 4,
 					"hit": 3,
 					"damage": 3,
 					"crit": 4,
-					"rng": 6,
-					"blast": 2,
-					"limited": true,
-					"indirect": true,
-					"stun": true
+					"rending": true,
+					"rng": 6
 				}
+			},
+			"special": {
+				"invulnerable save": 4
+			}
+		},
+		"Shadowseer": {
+			"stats": {
+				"movement": 3,
+				"apl": 3,
+				"group activation": 1,
+				"defense": 3,
+				"save": 6,
+				"wound": 9
+			},
+			"ranged-weapons": {
+				"Neuro disruptor": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 4,
+					"crit": 5,
+					"ap": 1,
+					"rng": 6,
+					"stun": true
+				},
+				"Shuriken pistol": {
+					"attack": 4,
+					"hit": 3,
+					"damage": 3,
+					"crit": 4,
+					"rending": true,
+					"rng": 6
+				}
+			},
+			"special": {
+				"invulnerable save": 4
+			}
+		}
+	},
+	"equipment": {
+		"Shrieker Toxin Rounds": {
+			"applicable": ["Shuriken pistol", "Shrieker cannon"],
+			"adds": {
+				"mw": 1
+			}
+		},
+		"Pure Psychocrystals": {
+			"applicable": ["Neuro disruptor"],
+			"adds": {
+				"lethal": 5
+			}
+		},
+		"Support Grip": {
+			"applicable": ["Shrieker cannon"],
+			"owners": ["Death Jester"],
+			"adds": {
+				"heavy": false,
+				"cumbersome": true
+			}
+		},
+		"Prismatic grenade": {
+			"stand-alone": true,
+			"stats": {
+				"attack": 4,
+				"hit": 3,
+				"damage": 3,
+				"crit": 4,
+				"rng": 6,
+				"blast": 2,
+				"limited": true,
+				"indirect": true,
+				"stun": true
 			}
 		}
 	}

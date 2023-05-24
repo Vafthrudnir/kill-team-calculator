@@ -1,6 +1,6 @@
 <template>
-    <v-select label="attacker" :items="teams" v-model="attacker"></v-select>
-    <v-select label="defender" :items="teams" v-model="defender"></v-select>
+    <v-select label="attacker" :items="teams" v-model="attacker" item-value="id" item-title="name"></v-select>
+    <v-select label="defender" :items="teams" v-model="defender" item-value="id" item-title="name"></v-select>
     <v-btn @click="simulate_combat()">Simulate</v-btn>
 
     <v-table v-if="results.length">
@@ -31,8 +31,8 @@
             <td>{{ combat_case.attacker }}</td>
             <td>{{ combat_case.weapon }}</td>
             <td>{{ combat_case.defender }}</td>
-            <td>{{ combat_case.expected_damage }}</td>
-            <td>{{ combat_case.deviation }}</td>
+            <td>{{ parseFloat(combat_case.expected_damage).toFixed(2) }}</td>
+            <td>{{ parseFloat(combat_case.deviation).toFixed(2) }}</td>
           </tr>
         </tbody>
     </v-table>
@@ -47,8 +47,7 @@ export default {
             results: [],
             teams: [],
             attacker: '',
-            defender: '',
-            organized_results: {}
+            defender: ''
         }
     },
     methods: {
@@ -58,8 +57,6 @@ export default {
                 .get(path)
                 .then((res) => {
                     this.teams = res.data
-                    this.attacker = this.teams[0]
-                    this.defender = this.teams[0]
                 })
                 .catch((error) => {
                     console.error(error)

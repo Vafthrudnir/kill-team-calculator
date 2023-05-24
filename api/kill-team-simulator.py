@@ -70,15 +70,17 @@ def load_team(team):
 			team_dict = json.load(team_handler)
 	except OSError:
 			return None
+	team_dict['id'] = team
 	return team_dict
 
 
 @app.route('/teams/')
-def get_team_list():
+def get_all_teams():
 	res = []
 	for path in os.listdir('datasets/'):
 		if os.path.isfile(os.path.join('datasets/', path)):
-			res.append(os.path.splitext(path)[0])
+			team = os.path.splitext(path)[0]
+			res.append(load_team(team))
 	print(res)
 	return res
 
@@ -94,23 +96,21 @@ def simulate():
 		return f'team "{content["defender"]}" does not exist!', 400
 
 	attacker_dict = {}
-	for attacker_description in attacker.values():
-		for operative, op_details in attacker_description['operatives'].items():
-			try:
-				for weapon_name, weapon in op_details['ranged-weapons'].items():
-					attacker_dict[(operative, weapon_name)] = weapon
-			except KeyError:
-				pass
-		for equipment, eq_details in attacker_description['equipment'].items():
-			try:
-				if eq_details['stand-alone']:
-					attacker_dict[(None, equipment)] = eq_details['stats']
-			except KeyError:
-				pass
+	for operative, op_details in attacker['operatives'].items():
+		try:
+			for weapon_name, weapon in op_details['ranged-weapons'].items():
+				attacker_dict[(operative, weapon_name)] = weapon
+		except KeyError:
+			pass
+	for equipment, eq_details in attacker['equipment'].items():
+		try:
+			if eq_details['stand-alone']:
+				attacker_dict[(None, equipment)] = eq_details['stats']
+		except KeyError:
+			pass
 
 	defender_dict = {}
-	for defender_description in defender.values():
-		for operative, op_details in defender_description['operatives'].items():
-			defender_dict[operative] = op_details['stats']
+	for operative, op_details in defender['operatives'].items():
+		defender_dict[operative] = op_details['stats']
 
 	return combine_operatives(attacker_dict, defender_dict)
