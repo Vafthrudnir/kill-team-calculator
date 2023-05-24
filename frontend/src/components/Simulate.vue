@@ -12,9 +12,9 @@ export default {
     data() {
         return {
             results: "",
-            attacker: "",
-            defender: "",
-            teams: []
+            teams: [],
+            attacker: '',
+            defender: '',
         }
     },
     methods: {
@@ -24,6 +24,8 @@ export default {
                 .get(path)
                 .then((res) => {
                     this.teams = res.data
+                    this.attacker = this.teams[0]
+                    this.defender = this.teams[0]
                 })
                 .catch((error) => {
                     console.error(error)
