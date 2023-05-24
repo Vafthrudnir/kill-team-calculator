@@ -1,6 +1,7 @@
 import statistics
 import json
 import os
+import hashlib, base64
 from flask import Flask, request
 from flask_cors import CORS
 
@@ -41,8 +42,13 @@ def combine_operatives(attacker_dict, defender_dict):
 			expected_damage = statistics.mean(damages)
 			deviation = statistics.stdev(damages)
 			print(f'{attacker} - {defender_name}: {expected_damage:.2f} - {deviation:.2f}')
+			uid = hashlib.md5(
+				str.encode(
+					f'{attacker[0] or "equipment"}-{attacker[1]}-{defender_name}'
+				)).digest()
 			result_dict = {
-				"attacker": attacker[0],
+				"id": base64.b64encode(uid).decode(),
+				"attacker": attacker[0] or 'equipment',
 				"weapon": attacker[1],
 				"defender": defender_name,
 				"expected_damage": expected_damage,
